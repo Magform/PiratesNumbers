@@ -61,19 +61,17 @@ def Option():
 
 
 
-def Run():
+def RunGold():
     x=0
     while x==0:
         GoldLog=open('Gold.txt','r')
-        last_line = GoldLog.readlines()
+        last_line=GoldLog.readlines()
         OldGold=last_line[len(last_line)-1]
         GoldLog.close()
         OldGold=int(OldGold)
         if keyboard.is_pressed('tab'):
             x=1
             time.sleep(1)
-            
-
             Log=open('Log.txt','r')
             last_line = Log.readlines()
             y2=last_line[len(last_line)-1]
@@ -87,7 +85,7 @@ def Run():
             y2=int(y2)
             image = ImageGrab.grab(bbox=(x1,y1,x2,y2))
             image.save('money.png')
-
+            previousdata()
             time.sleep(1)
             img=Image.open('money.png')
             NewGold=pytesseract.image_to_string(img)
@@ -97,16 +95,16 @@ def Run():
             NewGold=NewGold.replace(' ','')
             if NewGold!='':
                 NewGold=int(NewGold)
-                money=tkinter.Label(text=NewGold).grid(row=1, column=1)
+                money=tkinter.Label(text=NewGold, bg='white').grid(row=1, column=1)
                 currentDT = datetime.datetime.now()
-                data=tkinter.Label(text=currentDT).grid(row=2, column=1)
+                data=tkinter.Label(text=currentDT, bg='white').grid(row=2, column=1)
                 window.update()
+                EarnGold=NewGold-OldGold
+                EarnGold=str(EarnGold)
+                OldGold=NewGold
+                NewGold=str(NewGold)
+                earned=tkinter.Label(text=EarnGold, bg='white').grid(row=4, column=1)
                 if OldGold!=NewGold:
-                    EarnGold=NewGold-OldGold
-                    EarnGold=str(EarnGold)
-                    OldGold=NewGold
-                    NewGold=str(NewGold)
-                    earned=tkinter.Label(text=EarnGold).grid(row=3, column=1)
                     GoldRecord=open('GoldRecord.txt','a')
                     GoldRecord.write(str(currentDT))
                     GoldRecord.write(' --> ')
@@ -121,25 +119,44 @@ def Run():
                     NewOldGold.close()
                     window.update()
 
+def previousdata():
+    GoldRecord=open('GoldRecord.txt','r')
+    last_line=GoldRecord.readlines()
+    previousdata=last_line[len(last_line)-1]
+    GoldRecord.close()
+    previousdata=previousdata[0:26]
+    previousdata=tkinter.Label(text=previousdata, bg='white').grid(row=3, column=1)
+
+def RunDoublon():
+    
+
+def Run():
+    RunGold()
+    RunDoublon()
                 
 NewGold=0
 data=0
 earned=0
 window = tkinter.Tk()
-window.title('Sea Of Thieves Gold Counter')
+window.title('Sea Of Thieves Counter')
 window.geometry('600x300')
+BGimg=tkinter.PhotoImage(file='BG.png')
+label1=tkinter.Label(image=BGimg).place(x = 0,y = 0)
+previousdata()
 line1=tkinter.Label(text='').grid(row=0, column=0)
-title = tkinter.Label(text='SEA OF THIEVES: THE BIG GOLD COUNTER').grid(row=0, column=0)
-line1=tkinter.Label(text='Your current gold: ').grid(row=1, column=0)
-money=tkinter.Label(text=NewGold).grid(row=1, column=1)
-line2=tkinter.Label(text='Last money update: ').grid(row=2, column=0)
-data=tkinter.Label(text=data).grid(row=2, column=1)
-line3=tkinter.Label(text='Gold earned between the two previous checks: ').grid(row=3, column=0)
-earned=tkinter.Label(text=earned).grid(row=3, column=1)
-line4=tkinter.Label(text='To update the counter press Refresh and, on the game, press TAB').grid(row=5, column=0)
-line5=tkinter.Label(text='      ').grid(row=5, column=2)
-option=tkinter.Button(text='option', command=Option, bg='gray').grid(row=10, column=10)
-option=tkinter.Button(text='Refresh', command=Run, bg='gray').grid(row=10, column=1)
+title = tkinter.Label(text='SEA OF THIEVES COUNTER',bd=0, bg='white', font='Courier').grid(row=0, column=0)
+line1=tkinter.Label(text='Your current gold: ', bg='white').grid(sticky="W", row=1, column=0)
+money=tkinter.Label(text=NewGold, bg='white').grid(row=1, column=1)
+line2=tkinter.Label(text='Last money check: ', bg='white').grid(sticky="W", row=2, column=0)
+data=tkinter.Label(text=data, bg='white').grid(row=2, column=1)
+line3=tkinter.Label(text='Previous money check: ', bg='white').grid(sticky="W", row=3, column=0)
+line4=tkinter.Label(text='Gold earned between the two previous checks:             ', bg='white').grid(sticky="W", row=4, column=0)
+earned=tkinter.Label(text=earned, bg='white').grid(row=4, column=1)
+line5=tkinter.Label(text='To update the counter press refresh and, on the game, press TAB', bg='white').grid(sticky="W", row=5, column=0, columnspan=2)
+option=tkinter.Button(text='refresh', command=Run, bg='gray').grid(row=10, column=1)
+option=tkinter.Button(text='option', command=Option, bg='gray').grid( sticky="SE", row=10, column=10)
+
+
 window.mainloop()
 
 
