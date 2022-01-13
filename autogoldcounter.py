@@ -10,7 +10,9 @@ import datetime
 import glob
 import inspect, re
 import functools
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import tkinter.font
+import webbrowser
+pytesseract.pytesseract.tesseract_cmd = r"Tesseract-OCR/tesseract.exe"
 
 
 
@@ -245,14 +247,14 @@ def Option():
                     Log.close()
 
                     Log=open('Log.txt','w')
-                    Log.write(x1+'\n')
-                    Log.write(y1+'\n')
-                    Log.write(x2+'\n')
-                    Log.write(y2+'\n')
-                    Log.write(x1d+'\n')
-                    Log.write(y1d+'\n')
-                    Log.write(x2d+'\n')
-                    Log.write(y2d+'\n')
+                    Log.write(x1)
+                    Log.write(y1)
+                    Log.write(x2)
+                    Log.write(y2)
+                    Log.write(x1d)
+                    Log.write(y1d)
+                    Log.write(x2d)
+                    Log.write(y2d)
                     Log.close()
                     ApplyPr.destroy()
                     break
@@ -361,6 +363,8 @@ def Run():
             NewGold=NewGold.replace('','')                                                 
             NewGold=NewGold.replace(' ','')
             NewGold=NewGold.replace('\n','')
+            NewGold=NewGold.replace('>','')
+            NewGold=NewGold.replace('©','')
             
             Log=open('Log.txt','r')
             last_line = Log.readlines()
@@ -389,11 +393,11 @@ def Run():
 
             previousdata()
             currentDT = datetime.datetime.now()
-            data=tkinter.Label(text=currentDT, bg='white').grid(row=5, column=1)
+            data=tkinter.Label(text=currentDT, bg='white').grid(row=6, column=1)
             window.update()
             
             if NewGold!='':
-                money=tkinter.Label(text=NewGold, bg='white').grid(row=1, column=1)
+                money=tkinter.Label(text=NewGold, bg='white').grid(row=2, column=1)
                 NewGold=int(NewGold)
                 window.update()
                 EarnGold=NewGold-OldGold
@@ -401,7 +405,7 @@ def Run():
                 OldGold=NewGold
                 NewGold=str(NewGold)
                 EarnGold=EarnGold.replace('\n','')
-                earned=tkinter.Label(text=EarnGold, bg='white').grid(row=2, column=1)
+                earned=tkinter.Label(text=EarnGold, bg='white').grid(row=3, column=1)
                 if OldGold!=NewGold:
                     GoldRecord=open('GoldRecord.txt','a')
                     GoldRecord.write(str(currentDT))
@@ -418,14 +422,14 @@ def Run():
                     window.update()
 
             if NewDoubloons!='':
-                money=tkinter.Label(text=NewDoubloons, bg='white').grid(row=3, column=1)
+                money=tkinter.Label(text=NewDoubloons, bg='white').grid(row=4, column=1)
                 NewDoubloons=int(NewDoubloons)
                 EarnDoubloons=NewDoubloons-OldDoubloons
                 EarnDoubloons=str(EarnDoubloons)
                 OldDoubloons=NewDoubloons
                 NewDoubloons=str(NewDoubloons)
                 EarnDoubloons=EarnDoubloons.replace('\n','')
-                earned=tkinter.Label(text=EarnDoubloons, bg='white').grid(row=4, column=1)
+                earned=tkinter.Label(text=EarnDoubloons, bg='white').grid(row=5, column=1)
                 if OldDoubloons!=NewDoubloons:
                     DoubloonsRecord=open('DoubloonsRecord.txt','a')
                     DoubloonsRecord.write(str(currentDT))
@@ -447,10 +451,46 @@ def previousdata():
     previousdata=last_line[len(last_line)-1]
     GoldRecord.close()
     previousdata=previousdata[0:26]
-    previousdata=tkinter.Label(text=previousdata, bg='white').grid(row=6, column=1)
+    previousdata=tkinter.Label(text=previousdata, bg='white').grid(row=7, column=1)
 
 
-                
+
+def SaveData():
+    Ssloop=sloop.get()
+    Sbrigantine=brigantine.get()
+    Sgallion=gallion.get()
+    SS=open('sinked.txt','w')
+    SS.write(Ssloop+'\n')
+    SS.write(Sbrigantine+'\n')
+    SS.write(Sgallion+'\n')
+    SS.close()    
+
+def update():
+    sloopo=int(sloop.get())
+    brigantineo=int(brigantine.get())
+    galliono=int(gallion.get())
+    total.set(sloopo+brigantineo+galliono)
+
+def credit():
+
+    def open(url):
+        webbrowser.open_new(url)
+    
+    credit=tkinter.Toplevel(window)
+    credit.title('Credit')
+    credit.geometry('420x150')
+    creditTitle =tkinter.font.Font( family = 'Courier', weight = "bold", size=12)
+    fntTitle =tkinter.font.Font( family = "Comic Sans MS", size = 20, weight = "bold")
+    titleOption=tkinter.Label(credit, text='Credit', font=fntTitle).grid(columnspan=2)
+    credit1=tkinter.Label(credit, text='Conception, realization and development:', font=creditTitle).grid(sticky="W", row=1, column=0)
+    name1=tkinter.Label(credit, text='Nicolas "Magform" Ferraresso ', fg="blue", cursor="hand2")
+    name1.grid(sticky="W", row=2, column=0)
+    name1.bind("<Button-1>", lambda e: open("https://it.wikipedia.org/wiki/Link"))
+    credit3=tkinter.Label(credit, text='Sunken boats counter idea', font=creditTitle).grid(sticky="W", row=3, column=0)
+    name2=tkinter.Label(credit, text='Damiano Cerioni', fg="blue", cursor="hand2")
+    name2.grid(sticky="W", row=4, column=0)
+    name2.bind("<Button-2>", lambda e: open('https://it.wikipedia.org/wiki/Link'))
+ 
 NewGold=0
 data=0
 earnedGold=0
@@ -458,25 +498,71 @@ NewDoubloons=0
 earnedDoubloons=0
 window = tkinter.Tk()
 window.title('Sea Of Thieves Counter')
-window.geometry('600x400')
+window.geometry('1000x400')
+window.resizable(width=False, height=False)
 BGimg=tkinter.PhotoImage(file='BG.png')
 label1=tkinter.Label(image=BGimg).place(x = 0,y = 0)
 previousdata()
-title = tkinter.Label(text='SEA OF THIEVES COUNTER', bg='white', font='Courier', bd=0).grid(row=0, column=0, columnspan=5)
-line1=tkinter.Label(text='Your current gold: ', bg='white').grid(sticky="W", row=1, column=0)
-money=tkinter.Label(text=NewGold, bg='white').grid(row=1, column=1)
-line4=tkinter.Label(text='Gold earned from last check:             ', bg='white').grid(sticky="W", row=2, column=0)
-earned=tkinter.Label(text=earnedGold, bg='white').grid(row=2, column=1)
-line1=tkinter.Label(text='Your current doubloons: ', bg='white').grid(sticky="W", row=3, column=0)
-money=tkinter.Label(text=NewDoubloons, bg='white').grid(row=3, column=1)
-line4=tkinter.Label(text='Doubloons earned from last check:             ', bg='white').grid(sticky="W", row=4, column=0)
-earned=tkinter.Label(text=earnedDoubloons, bg='white').grid(row=4, column=1)
-line2=tkinter.Label(text='Last check: ', bg='white').grid(sticky="W", row=5, column=0)
-data=tkinter.Label(text=data, bg='white').grid(row=5, column=1)
-line3=tkinter.Label(text='Previous check: ', bg='white').grid(sticky="W", row=6, column=0)
-line5=tkinter.Label(text='To update the counter press refresh and, on the game, press TAB', bg='white').grid(sticky="W", row=7, column=0, columnspan=2)
-option=tkinter.Button(text='refresh', command=Run, bg='gray').grid(row=10, column=1)
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=0, column=0)
+fntTitle =tkinter.font.Font( family = "Comic Sans MS", size = 20, weight = "bold")
+titleL = tkinter.Label(text='Sea of thieves counter',font=fntTitle, bg='white', bd=0).grid(row=0, column=1, columnspan=10)
+counterlabel=tkinter.Label(text='Counter: ', bg='white', font='family').grid(sticky='W', row=1, column=0)
+line1=tkinter.Label(text='Your current gold: ', bg='white').grid(sticky="W", row=2, column=0)
+money=tkinter.Label(text=NewGold, bg='white').grid(row=2, column=1)
+line4=tkinter.Label(text='Gold earned from last check:             ', bg='white').grid(sticky="W", row=3, column=0)
+earned=tkinter.Label(text=earnedGold, bg='white').grid(row=3, column=1)
+line1=tkinter.Label(text='Your current doubloons: ', bg='white').grid(sticky="W", row=4, column=0)
+money=tkinter.Label(text=NewDoubloons, bg='white').grid(row=4, column=1)
+line4=tkinter.Label(text='Doubloons earned from last check:             ', bg='white').grid(sticky="W", row=5, column=0)
+earned=tkinter.Label(text=earnedDoubloons, bg='white').grid(row=5, column=1)
+line2=tkinter.Label(text='Last check: ', bg='white').grid(sticky="W", row=6, column=0)
+data=tkinter.Label(text=data, bg='white').grid(row=6, column=1)
+line3=tkinter.Label(text='Previous check: ', bg='white').grid(sticky="W", row=7, column=0)
+line5=tkinter.Label(text='To update the counter press refresh and, on the game, press TAB', bg='white').grid(sticky="W", row=8, column=0, columnspan=2)
+
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=1, column=2)
+
+Log=open('sinked.txt','r')
+last_line = Log.readlines()
+galliono=last_line[len(last_line)-1]
+brigantineo=last_line[len(last_line)-2]
+sloopo=last_line[len(last_line)-3]
+Log.close()
+galliono=galliono.replace('\n','')
+brigantineo=brigantineo.replace('\n','')
+sloopo=sloopo.replace('\n','')
+gallion=tkinter.StringVar()
+gallion.set(galliono)
+brigantine=tkinter.StringVar()
+brigantine.set(brigantineo)
+sloop=tkinter.StringVar()
+sloop.set(sloopo)
+total=tkinter.StringVar()
+update()
+
+counterlabel=tkinter.Label(text='Sunken boats: ', bg='white', font='family').grid(sticky='W', row=1, column=3)
+sloopcounterlabel=tkinter.Label(text='sloops: ', bg='white').grid(sticky='W', row=2, column=3)
+brigantinecounterlabel=tkinter.Label(text='brigantines: ', bg='white').grid(sticky='W', row=3, column=3)
+gallioncounterlabel=tkinter.Label(text='gallions: ', bg='white').grid(sticky='W', row=4, column=3)
+#totallabel=tkinter.Label(text='total sunken boats: ', bg='white').grid(sticky='W', row=5, column=3)
+
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=1, column=4)
+sloopcounter=tkinter.Entry(width=5, borderwidth=2, textvariable=sloop).grid(sticky="W", row=2,column=5)
+brigantinecounter=tkinter.Entry(width=5, borderwidth=2, textvariable=brigantine).grid(sticky="W", row=3,column=5)
+gallioncounter=tkinter.Entry(width=5, borderwidth=2, textvariable=gallion).grid(sticky="W", row=4,column=5)
+#totalcounter=tkinter.Entry(width=5, borderwidth=2, textvariable=total, state='disable').grid(sticky="W", row=5,column=5)
+
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=9, column=9)
+refresh=tkinter.Button(text='refresh', command=Run, bg='gray').grid(row=10, column=1)
+savedata=tkinter.Button(text='save', command=SaveData, bg='gray').grid(row=10, column=5)
 option=tkinter.Button(text='option', command=Option, bg='gray').grid( sticky="SE", row=10, column=10)
+
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=99, column=99)
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=98, column=99)
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=97, column=99)
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=96, column=99)
+clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=95, column=99)
+credit=tkinter.Button(text='credit', command=credit).grid(sticky='SE', row=100, column=100)
 window.mainloop()
 
 
