@@ -10,13 +10,11 @@ from PIL import ImageGrab
 from PIL import Image
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-GoldRecord=open('GoldRecord.txt','r')
-last_line = GoldRecord.readlines()
+GoldLog=open('Gold.txt','r')
+last_line = GoldLog.readlines()
 OldGold=last_line[len(last_line)-1]
-GoldRecord.close()
-OldGold= OldGold[31:]
+GoldLog.close()
 OldGold=int(OldGold)
-print(1)
 
 while True: 
     try:
@@ -27,6 +25,7 @@ while True:
             time.sleep(1)
             img=Image.open('money.png')
             NewGold=pytesseract.image_to_string(img)
+            os.remove('money.png')
             NewGold=NewGold.replace('.','')
             NewGold=NewGold.replace('','')
             NewGold=NewGold.replace(' ','')
@@ -48,11 +47,16 @@ while True:
                     GoldRecord.write(str(currentDT))
                     GoldRecord.write(' --> ')
                     GoldRecord.write(NewGold)
-                    GoldRecord.write('(+')
+                    GoldRecord.write(' (+')
                     GoldRecord.write(EarnGold)
-                    GoldRecord.write(')')
+                    GoldRecord.write(')\n')
                     GoldRecord.close()
+                    NewOldGold=open('Gold.txt','a')
+                    NewOldGold.write(NewGold)
+                    NewOldGold.write('\n')
+                    NewOldGold.close()
                     time.sleep(600)
+                    print('New Tab waiting')
                     
     except:
         break
