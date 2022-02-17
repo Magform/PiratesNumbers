@@ -25,6 +25,7 @@ def Option():
         if x1Option.get()=='' or y1Option.get()=='' or x2Option.get()=='' or y2Option.get()=='' or x1dOption.get()=='' or y1dOption.get()=='' or x2dOption.get()=='' or y2dOption.get()=='':
              error=tkinter.Toplevel(window)
              error.title('Error')
+             error.iconbitmap(icon)
              error.geometry('200x25')
              error=tkinter.Label(error, text='Error: all spaces must be filled ').grid()
 
@@ -63,6 +64,7 @@ def Option():
         if x1Option.get()=='' or y1Option.get()=='' or x2Option.get()=='' or y2Option.get()=='' or x1dOption.get()=='' or y1dOption.get()=='' or x2dOption.get()=='' or y2dOption.get()=='':
              error=tkinter.Toplevel(window)
              error.title('Error')
+             error.iconbitmap(icon)
              error.geometry('200x25')
              error=tkinter.Label(error, text='Error: all spaces must be filled').grid()
 
@@ -84,6 +86,7 @@ def Option():
         if x1Option.get()=='' or y1Option.get()=='':
              error=tkinter.Toplevel(window)
              error.title('Error')
+             error.iconbitmap(icon)
              error.geometry('215x25')
              error=tkinter.Label(error, text='Error: the first 2 spaces must be filled ').grid()
              
@@ -129,6 +132,7 @@ def Option():
         if x1Option.get()=='' or y1Option.get()=='':
              error=tkinter.Toplevel(window)
              error.title('Error')
+             error.iconbitmap(icon)
              error.geometry('215x25')
              error=tkinter.Label(error, text='Error: the first 2 spaces must be filled ').grid()
              
@@ -214,6 +218,7 @@ def Option():
         TestPr=tkinter.Toplevel(option)
         TestPr.title('Preset')
         TestPr.geometry('300x200')
+        TestPr.iconbitmap(icon)
         titleOption=tkinter.Label(TestPr, text='Preset', font='Courier').grid(columnspan=2)
         path = 'preset/'
         a=0
@@ -278,6 +283,7 @@ def Option():
        
     option=tkinter.Toplevel(window)
     option.title('Option')
+    option.iconbitmap(icon)
     option.geometry('500x700')
     titleOption=tkinter.Label(option, text='Option', font='Courier').grid(columnspan=2)
     
@@ -477,6 +483,7 @@ def credit():
     
     credit=tkinter.Toplevel(window)
     credit.title('Credit')
+    credit.iconbitmap(icon)
     credit.geometry('420x600')
     creditTitle =tkinter.font.Font( family = 'Courier', weight = "bold", size=12)
     creditSubTitle =tkinter.font.Font(family='Courier', size=11)
@@ -500,7 +507,9 @@ earnedGold=0
 NewDoubloons=0
 earnedDoubloons=0
 window = tkinter.Tk()
-window.title('Sea Of Thieves Counter')
+icon = 'icon.ico'
+window.title('Pirates number')
+window.iconbitmap(icon)
 window.geometry('1000x400')
 window.resizable(width=False, height=False)
 BGimg=tkinter.PhotoImage(file='BG.png')
@@ -508,7 +517,7 @@ label1=tkinter.Label(image=BGimg).place(x = 0,y = 0)
 previousdata()
 clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=0, column=0)
 fntTitle =tkinter.font.Font( family = "Comic Sans MS", size = 20, weight = "bold")
-titleL = tkinter.Label(text='Sea of thieves counter',font=fntTitle, bg='white', bd=0).grid(row=0, column=1, columnspan=10)
+titleL = tkinter.Label(text='Pirates number',font=fntTitle, bg='white', bd=0).grid(row=0, column=1, columnspan=10)
 counterlabel=tkinter.Label(text='Counter: ', bg='white', font='family').grid(sticky='W', row=1, column=0)
 line1=tkinter.Label(text='Your current gold: ', bg='white').grid(sticky="W", row=2, column=0)
 money=tkinter.Label(text=NewGold, bg='white').grid(row=2, column=1)

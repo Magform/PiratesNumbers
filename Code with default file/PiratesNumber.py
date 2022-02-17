@@ -508,7 +508,7 @@ NewDoubloons=0
 earnedDoubloons=0
 window = tkinter.Tk()
 icon = 'icon.ico'
-window.title('Sea Of Thieves Counter')
+window.title('Pirates number')
 window.iconbitmap(icon)
 window.geometry('1000x400')
 window.resizable(width=False, height=False)
@@ -517,7 +517,7 @@ label1=tkinter.Label(image=BGimg).place(x = 0,y = 0)
 previousdata()
 clear=tkinter.Label(text='                              ', bg='white').grid(sticky='W', row=0, column=0)
 fntTitle =tkinter.font.Font( family = "Comic Sans MS", size = 20, weight = "bold")
-titleL = tkinter.Label(text='Sea of thieves counter',font=fntTitle, bg='white', bd=0).grid(row=0, column=1, columnspan=10)
+titleL = tkinter.Label(text='Pirates number',font=fntTitle, bg='white', bd=0).grid(row=0, column=1, columnspan=10)
 counterlabel=tkinter.Label(text='Counter: ', bg='white', font='family').grid(sticky='W', row=1, column=0)
 line1=tkinter.Label(text='Your current gold: ', bg='white').grid(sticky="W", row=2, column=0)
 money=tkinter.Label(text=NewGold, bg='white').grid(row=2, column=1)
