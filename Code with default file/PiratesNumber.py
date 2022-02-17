@@ -395,6 +395,7 @@ def Run():
             NewDoubloons=NewDoubloons.replace('|','')
             NewDoubloons=NewDoubloons.replace(':','')
             NewDoubloons=NewDoubloons.replace('∞','')
+            NewDoubloons=NewDoubloons.replace('«','')
 
             previousdata()
             currentDT = datetime.datetime.now()
