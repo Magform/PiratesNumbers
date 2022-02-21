@@ -16,12 +16,15 @@ To configure the softer the frist time you use it
 
 
 ## Future Development
+_In order of importance, it is not said, however, that it wavered made in this order_
 
-##### Complete rewrite of the code
+#### Complete rewrite of the code
 
-##### Remove knwon problems
+#### Remove knwon problems
 
-##### Add more presets
+#### Website development
+
+#### Add more presets
 
 ## Tech
 
