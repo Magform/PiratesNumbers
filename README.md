@@ -46,7 +46,10 @@ So I intend to rewrite it and comment it so that others can understand it better
 I want to take some time to fix the problems that I and other users discover.
 
 #### Website development
-I also wanted to develop a site of the project that would provide the download of the files and all the information about the project
+I also wanted to develop a site of the project that would provide the download of the files and all the information about the project.
+
+#### Window improvements
+Together with the rewrite of the code I would like to make sure that each window can only open once and that it opens directly in the foreground.
 
 #### Add more presets
 If you have different monitor sizes or different amounts of doubloons or gold you will need to use different presets for the software so it is my intention to add as many presets as possible so that everyone can use a preset without having to make it their own.<br>
@@ -70,7 +73,8 @@ Pirates numbers uses a lot of library to work properly:
 - [webbrowser] - Open link
  
 ## Collaborate to the project 
- 
+If you wish to collaborate on the project in any way, do not hesitate to contact me on discord or to enter the official [discord], even if only to report any bugs found or to suggest interesting additions. 
+
 ## License
 
 GPL-3.0 License
