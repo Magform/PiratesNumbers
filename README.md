@@ -20,6 +20,7 @@ To do this you need to try to guess the value in the Option windows, generally t
 - 75 for the sixth value
 - between 1600 and 2000 for the seventh value
 - 110 for the eighth value
+
 If you have the amount of gold and doubloons mentioned before once you have entered the first two values you can try clicking "Test with standard distance" and if it give you the right results you can click on "Apply with standard distance".<br>
 If you don't have that amount of gold and doubloons or the result is not as it should be, you have to go and find all the coordinate using the test button, after which you will have to click on Apply.
 Now all the setup is done, you only need to open the game and, when you need to do some check you have to open the software and click on refresh, go on the game and press TAB so that your gold and doubloons appear at the top right.
@@ -34,6 +35,9 @@ I've found a potential solution [here] but it takes a lot of time to implement i
 #### Credits button exits the screen
 When previous check or last check is present then the part of the GUI to the right of this shifts slightly to the right and part of the credits button exits the screen.<br>
 To fix this I just need to remove the milliseconds from the time.
+
+#### Slow startup
+Pirates numbers has a very slow startup due, in my opinion, to pytesseract and tkinter but I have no idea how to make it faster.
 
 ## Future Development
 _In order of importance, it is not said, however, that it wavered made in this order_
